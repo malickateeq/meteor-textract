@@ -105,7 +105,9 @@ const uploadFileToS3 = (file) => {
       { _id: file._id },
       { $set: { s3_uploaded: true, name: newFileName } }
     );
+    return true;
   } catch (error) {
+    return false;
     console.log(error);
   }
 };

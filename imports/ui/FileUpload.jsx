@@ -4,11 +4,6 @@ import imagesCollection from "/imports/db/imagesCollection";
 
 export const FileUpload = () => {
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log(e.currentTarget.files);
-  };
-
   const uploadIt = e => {
     e.preventDefault();
     
@@ -16,6 +11,9 @@ export const FileUpload = () => {
         var file = e.currentTarget.files[0];
 
       if (file) {
+        //   Delete all existing records
+        Meteor.call('files.crud.delete');
+        
         let uploadInstance = imagesCollection.insert(
           {
             file: file,
@@ -39,9 +37,10 @@ export const FileUpload = () => {
 
         uploadInstance.on('uploaded', function (error, fileObj) {
           console.log('uploaded: ', fileObj);
-
+          Meteor.call('files.uploaded', fileObj);
+            e.target.value = null;
           // Remove the filename from the upload box
-        //   self.refs['fileinput'].value = '';
+            // self.refs['fileinput'].value = '';
 
         });
 
@@ -61,16 +60,13 @@ export const FileUpload = () => {
   }
 
   return (
-    <form className="task-form" onSubmit={handleSubmit}>
-        <h3>Upload a file</h3>
-      <input
-        id="fileinput"
-        // ref="fileinput"
-        onChange={uploadIt}
-        type="file"
-        name="cnic"
-        // onChange={(e) => setCnic(e.target.value)}
-      />
+    <form className="p-4 p-md-5 border rounded-3 bg-light">
+        <div>
+            <label htmlFor="formFileLg" className="form-label"> Select your PDF file </label>
+            <input className="form-control form-control-lg" id="fileinput" onChange={uploadIt} type="file" />
+        </div>
+        <hr className="my-4" />
+        <small className="text-muted"> Powered by Textract. </small>
     </form>
   );
 };
