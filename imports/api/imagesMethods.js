@@ -31,7 +31,9 @@ Meteor.methods({
   'files.uploaded'(file) {
     try {
       console.log('Uploading on S3...');
-      if (uploadFileToS3(file)) {
+
+      const fileName = uploadFileToS3(file);
+      if (fileName) {
         const s3UploadedFile = imagesCollection
           .findOne({ _id: file._id })
           .fetch();

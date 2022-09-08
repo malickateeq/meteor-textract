@@ -25,7 +25,10 @@ export const textractFile = (file) => {
         { $set: { textracted: true, jobId: data.JobId } }
       );
     });
+
+    return true;
   } catch (err) {
+    return false;
     console.log('ERRORs', err);
     return err;
   }

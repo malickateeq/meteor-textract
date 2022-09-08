@@ -7,15 +7,16 @@ let getAnalysisInterval = null;
 
 export const TextractContent = () => {
     
-    const forceSubmitForTextract = () => {
+    const forceSubmitForTextract = (lastestFile) => {
         setTimeout(() => {
             console.log("Textracting...");
-            console.log(lastestFile);
+            console.log(lastestFile.name);
             Meteor.call('files.submit.textract', lastestFile);
         }, 4000);
     };
 
     const { lastestFile } = useTracker(() => {
+
         let lastestFile = null;
         const noDataAvailable = { files: [], pendingTasksCount: 0 };
         const handler = Meteor.subscribe('files.images.all');
@@ -26,8 +27,8 @@ export const TextractContent = () => {
         if(files) {
             lastestFile = files[0]; 
             if(!lastestFile.analysis) {
-                console.log("Analysing...");
                 getAnalysisInterval = setInterval(() => {
+                    console.log("Analysing...", lastestFile.name);
                     Meteor.call('files.submit.analysis', lastestFile);
                 }, 3000);
             }
@@ -66,6 +67,11 @@ export const TextractContent = () => {
                     )
                 )}
             </p>
+            <hr className="my-4" />
+            <small className="text-muted"> File: { lastestFile?.name } </small>
+            <br />
+            <br />
+            { !lastestFile?.textracted ? <small className="text-muted"> <button onClick={ (e) => forceSubmitForTextract(lastestFile)} className="btn btn-sm btn-primary">Submit Again</button>  </small> : "" }
         </>
   );
 };
