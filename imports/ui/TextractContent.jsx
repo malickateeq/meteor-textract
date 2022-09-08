@@ -74,8 +74,8 @@ export const TextractContent = () => {
             <small className="text-muted"> File: { lastestFile?.name } </small>
             <br />
             <br />
-            { lastestFile && !lastestFile?.textracted ? <small className="text-muted"> <button onClick={ (e) => forceSubmitForTextract(lastestFile)} className="btn btn-sm btn-primary">Submit Again</button>  </small> : "" }
-            { lastestFile && !lastestFile?.textracted  ? !lastestFile?.analysis ? <small className="text-muted"> <button onClick={ (e) => forceGetResults(lastestFile)} className="btn btn-sm btn-primary">Fetch Results</button>  </small> : '' : "" }
+            { lastestFile && !lastestFile?.textracted ? <small className="text-muted"> <button onClick={ (e) => forceSubmitForTextract(lastestFile)} className="btn btn-sm btn-primary mr-3">Submit Again</button>  </small> : "" }
+            { lastestFile && lastestFile?.textracted && !lastestFile?.analysis ? <small className="text-muted"> <button onClick={ (e) => forceGetResults(lastestFile)} className="btn btn-sm btn-primary">Fetch Results</button>  </small> : '' }
         </>
   );
 };
