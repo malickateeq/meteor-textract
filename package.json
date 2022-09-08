@@ -1,0 +1,32 @@
+{
+  "name": "infinity",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
+    "visualize": "meteor --production --extra-packages bundle-visualizer"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.165.0",
+    "@aws-sdk/client-textract": "^3.165.0",
+    "@aws-sdk/node-http-handler": "^3.162.0",
+    "@babel/runtime": "^7.17.9",
+    "aws-sdk": "^2.1211.0",
+    "debug": "^4.3.4",
+    "dotenv": "^16.0.2",
+    "fs-extra": "^10.1.0",
+    "lodash": "^4.17.21",
+    "meteor-node-stubs": "^1.2.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "simpl-schema": "^1.12.3"
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.jsx",
+      "server": "server/main.js"
+    },
+    "testModule": "tests/main.js"
+  }
+}
