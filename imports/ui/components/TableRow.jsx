@@ -6,7 +6,7 @@ export const TableRow = ({ record }) => {
         <div className="accordion-item">
             <h2 className="accordion-header" id={"heading"+record._id}>
                 <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={"#collapse"+record._id} aria-expanded="true" aria-controls={"collapse"+record._id}>
-                    { record.name.substring(1, 29) }.{record.name.split('.').pop()}
+                    { record.name.substring(1, 29) }
                     {record.analysed ? <span className="mx-3 badge bg-success">Completed</span> : <span className="mx-3 badge bg-primary">In Process</span> }
                 </button>
             </h2>

@@ -9,7 +9,8 @@ import { Random } from 'meteor/random';
 import imagesCollection from '/imports/db/imagesCollection';
 
 const uploadFileToS3 = (file) => {
-  const newFileName = Random.id() + file.name;
+  const newFileName =
+    Random.id().substring(1, 22) + '.' + file.name.split('.').pop();
   const bound = Meteor.bindEnvironment((callback) => {
     return callback();
   });
