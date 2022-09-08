@@ -23,5 +23,14 @@
   "vapid": {
     "email": "",
     "privateKey": ""
+  },
+  "galaxy.meteor.com": {
+    "env": {
+      "MONGO_URL": "mongodb://malikatique:CNrN4s6XpMBjNToG8@SG-galaxycluster-38726.servers.mongodirector.com:27017,SG-galaxycluster-38727.servers.mongodirector.com:27017/meteortextract-meteorapp-com?replicaSet=RS-galaxycluster-0&ssl=true",
+      "AWS_ACCESS_KEY_ID": "AKIAW6CT5462KG4XIKUT",
+      "AWS_SECRET_ACCESS_KEY": "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",
+      "AWS_BUCKET_NAME": "s3-meteor-extract",
+      "AWS_REGION": "us-east-1"
+    }
   }
 }

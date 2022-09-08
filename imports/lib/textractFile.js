@@ -7,11 +7,11 @@ import imagesCollection from '/imports/db/imagesCollection';
 
 // 1. Submit document to analyze
 export const textractFile = (file) => {
-  const textract = new TextractClient({ region: process.env.AWS_REGION });
+  const textract = new TextractClient({ region: 'us-east-1' });
   const params = {
     DocumentLocation: {
       S3Object: {
-        Bucket: process.env.AWS_BUCKET_NAME,
+        Bucket: 's3-meteor-extract',
         Name: file.name,
       },
     },
@@ -33,7 +33,7 @@ export const textractFile = (file) => {
 
 // 1. Submit document to analyze
 export const getFileAnalysis = (file) => {
-  const textract = new TextractClient({ region: process.env.AWS_REGION });
+  const textract = new TextractClient({ region: 'us-east-1' });
   const params = { JobId: file.jobId };
   //   if (NextToken) params.NextToken = NextToken;
   const command = new GetDocumentAnalysisCommand(params);

@@ -8,6 +8,9 @@ import imagesCollection from '/imports/db/imagesCollection';
 import uploadFileToS3 from '/imports/lib/uploadFileToS3';
 import { textractFile, getFileAnalysis } from '/imports/lib/textractFile';
 
+// Set ENV variables
+Meteor.settings = process.env;
+
 Meteor.startup(() => {
   //   Meteor.setInterval(function () {
   //     /**

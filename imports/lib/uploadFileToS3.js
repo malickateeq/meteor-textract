@@ -16,11 +16,18 @@ const uploadFileToS3 = (file) => {
   });
 
   const s3Conf = {
-    key: process.env.AWS_ACCESS_KEY_ID,
-    secret: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION,
-    bucket: process.env.AWS_BUCKET_NAME,
+    key: 'AKIAW6CT5462KG4XIKUT',
+    secret: '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',
+    region: 'us-east-1',
+    bucket: 's3-meteor-extract',
   };
+
+  //   const s3Conf = {
+  //     key: process.env.AWS_ACCESS_KEY_ID,
+  //     secret: process.env.AWS_SECRET_ACCESS_KEY,
+  //     region: process.env.AWS_REGION,
+  //     bucket: process.env.AWS_BUCKET_NAME,
+  //   };
 
   try {
     const s3ConnectionTimeout = 6000000;
