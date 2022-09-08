@@ -26,7 +26,7 @@ export const textractFile = (file) => {
       );
     });
   } catch (err) {
-    console.log('ERROR', err);
+    console.log('ERRORs', err);
     return err;
   }
 };

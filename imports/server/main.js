@@ -11,7 +11,7 @@ Meteor.startup(() => {
   /**
    * Upload Pending Files to S3
    */
-  const pendingFiles = imagesCollection.find({ s3_uploaded: { $ne: false } });
+  const pendingFiles = imagesCollection.find({ s3_uploaded: { $eq: null } });
   pendingFiles.forEach((file) => {
     try {
       uploadFileToS3(file);
@@ -24,8 +24,8 @@ Meteor.startup(() => {
    * Apply Textract Job to Pending files at S3
    */
   const textractFiles = imagesCollection.find({
-    textracted: { $ne: false },
-    analysed: { $ne: false },
+    textracted: { $eq: null },
+    analysed: { $eq: null },
   });
   textractFiles.forEach((file) => {
     try {
@@ -38,7 +38,9 @@ Meteor.startup(() => {
   /**
    * Fetch Textract File Analusis
    */
-  const textractFileAnalysis = imagesCollection.find({ textracted: true });
+  const textractFileAnalysis = imagesCollection.find({
+    analysis: { $eq: null },
+  });
   textractFileAnalysis.forEach((file) => {
     try {
       getFileAnalysis(file);

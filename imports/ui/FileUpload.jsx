@@ -11,7 +11,6 @@ export const FileUpload = () => {
 
   const uploadIt = e => {
     e.preventDefault();
-    console.log("HERE");
     
     if (e.currentTarget.files && e.currentTarget.files[0]) {
         var file = e.currentTarget.files[0];
@@ -63,7 +62,7 @@ export const FileUpload = () => {
 
   return (
     <form className="task-form" onSubmit={handleSubmit}>
-        <h1>Upload a file</h1>
+        <h3>Upload a file</h3>
       <input
         id="fileinput"
         // ref="fileinput"
@@ -72,9 +71,6 @@ export const FileUpload = () => {
         name="cnic"
         // onChange={(e) => setCnic(e.target.value)}
       />
-    <br></br>
-    <br></br>
-      <button type="submit">Add Task</button>
     </form>
   );
 };

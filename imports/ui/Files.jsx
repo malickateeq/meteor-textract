@@ -1,32 +1,24 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
-import {ShowFile} from './ShowFile';
-import { filesCollection } from "../db/filesCollection";
+import imagesCollection from "../db/imagesCollection";
+import { TableRow } from './components/TableRow';
 
 export const Files = () => {
     const { files } = useTracker(() => {
-        const noDataAvailable = { images: [], pendingTasksCount: 0 };
+        const noDataAvailable = { files: [], pendingTasksCount: 0 };
         const handler = Meteor.subscribe('files.images.all');
         if (!handler.ready()) {
             return { ...noDataAvailable, isLoading: true };
         }
-        const images = filesCollection.find(
-            {}
-          ).fetch();
-        return { files: images};
+        const files = imagesCollection.find({}).fetch();
+        return { files };
     });
     
   return (
-    <form className="task-form">
-        <h1>Files</h1>
-    <br></br>
-    <br></br>
-      {/* <ul> */}
-        { files.toArray() ?? [].map(file => {
-            file._id
-        })}
-      {/* </ul> */}
-    </form>
+
+    <div className="accordion" id="accordionExample">
+        { files.map(file => <TableRow record={file} />) }
+    </div>
   );
 };
