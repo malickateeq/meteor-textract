@@ -6,6 +6,15 @@ import imagesCollection from "../db/imagesCollection";
 let getAnalysisInterval = null;
 
 export const TextractContent = () => {
+    
+    const forceSubmitForTextract = () => {
+        setTimeout(() => {
+            console.log("Textracting...");
+            console.log(lastestFile);
+            Meteor.call('files.submit.textract', lastestFile);
+        }, 4000);
+    };
+
     const { lastestFile } = useTracker(() => {
         let lastestFile = null;
         const noDataAvailable = { files: [], pendingTasksCount: 0 };
@@ -15,20 +24,13 @@ export const TextractContent = () => {
         }
         const files = imagesCollection.findOne({}).fetch();
         if(files) {
-            lastestFile = files[0];
-            if(!lastestFile.textracted) {
-                console.log("Textracting...");
-                setTimeout(() => {
-                    Meteor.call('files.submit.textract', lastestFile);
-                }, 2000);
-            }  
-            else if(!lastestFile.analysis) {
+            lastestFile = files[0]; 
+            if(!lastestFile.analysis) {
                 console.log("Analysing...");
                 getAnalysisInterval = setInterval(() => {
                     Meteor.call('files.submit.analysis', lastestFile);
-                }, 2000);
+                }, 3000);
             }
-
             if(lastestFile.analysis) clearInterval(getAnalysisInterval);
 
             return { lastestFile: files[0] };
