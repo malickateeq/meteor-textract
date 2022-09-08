@@ -8,11 +8,15 @@ let getAnalysisInterval = null;
 export const TextractContent = () => {
     
     const forceSubmitForTextract = (lastestFile) => {
-        setTimeout(() => {
-            console.log("Textracting...");
-            console.log(lastestFile.name);
-            Meteor.call('files.submit.textract', lastestFile);
-        }, 4000);
+        console.log("Textracting...");
+        console.log(lastestFile.name);
+        Meteor.call('files.submit.textract', lastestFile);
+    };
+    
+    const forceGetResults = (lastestFile) => {
+        console.log("Getting Results...");
+        console.log("Analysing...", lastestFile.name);
+        Meteor.call('files.submit.analysis', lastestFile);
     };
 
     const { lastestFile } = useTracker(() => {
@@ -27,12 +31,11 @@ export const TextractContent = () => {
         if(files) {
             lastestFile = files[0]; 
             if(!lastestFile.analysis) {
-                getAnalysisInterval = setInterval(() => {
+                setTimeout(() => {
                     console.log("Analysing...", lastestFile.name);
                     Meteor.call('files.submit.analysis', lastestFile);
                 }, 3000);
             }
-            if(lastestFile.analysis) clearInterval(getAnalysisInterval);
 
             return { lastestFile: files[0] };
         }
@@ -71,7 +74,8 @@ export const TextractContent = () => {
             <small className="text-muted"> File: { lastestFile?.name } </small>
             <br />
             <br />
-            { !lastestFile?.textracted ? <small className="text-muted"> <button onClick={ (e) => forceSubmitForTextract(lastestFile)} className="btn btn-sm btn-primary">Submit Again</button>  </small> : "" }
+            { lastestFile && !lastestFile?.textracted ? <small className="text-muted"> <button onClick={ (e) => forceSubmitForTextract(lastestFile)} className="btn btn-sm btn-primary">Submit Again</button>  </small> : "" }
+            { lastestFile && !lastestFile?.textracted  ? !lastestFile?.analysis ? <small className="text-muted"> <button onClick={ (e) => forceGetResults(lastestFile)} className="btn btn-sm btn-primary">Fetch Results</button>  </small> : '' : "" }
         </>
   );
 };
