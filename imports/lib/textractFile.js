@@ -23,6 +23,7 @@ export const textractFile = (file) => {
   try {
     textract.send(command, (err, data) => {
       console.log('TR3', data);
+      console.log('TR4', err);
       imagesCollection.update(
         { _id: file._id },
         { $set: { textracted: true, jobId: data.JobId } }
