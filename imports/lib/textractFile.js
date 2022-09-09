@@ -7,6 +7,7 @@ import imagesCollection from '/imports/db/imagesCollection';
 
 // 1. Submit document to analyze
 export const textractFile = (file) => {
+  console.log('TR1', file.name);
   const textract = new TextractClient({ region: 'us-east-1' });
   const params = {
     DocumentLocation: {
@@ -17,9 +18,11 @@ export const textractFile = (file) => {
     },
     FeatureTypes: ['TABLES'],
   };
+  console.log('TR2', params);
   const command = new StartDocumentAnalysisCommand(params);
   try {
     textract.send(command, (err, data) => {
+      console.log('TR3', data);
       imagesCollection.update(
         { _id: file._id },
         { $set: { textracted: true, jobId: data.JobId } }
@@ -28,8 +31,8 @@ export const textractFile = (file) => {
 
     return true;
   } catch (err) {
+    console.log('Textract Error', err);
     return false;
-    console.log('ERRORs', err);
     return err;
   }
 };
