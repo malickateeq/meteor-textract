@@ -22,8 +22,11 @@ export const textractFile = (file) => {
   const params = {
     DocumentLocation: {
       S3Object: {
+        key: 'AKIAW6CT5462KG4XIKUT',
+        secret: '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',
         Bucket: 's3-meteor-extract',
         Name: file.name,
+        region: 'us-east-1',
       },
     },
     FeatureTypes: ['TABLES'],
