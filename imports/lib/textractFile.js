@@ -8,7 +8,17 @@ import imagesCollection from '/imports/db/imagesCollection';
 // 1. Submit document to analyze
 export const textractFile = (file) => {
   console.log('TR1', file.name);
-  const textract = new TextractClient({ region: 'us-east-1' });
+  const textractCred = {
+    key: 'AKIAW6CT5462KG4XIKUT',
+    secret: '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',
+    region: 'us-east-1',
+    bucket: 's3-meteor-extract',
+  };
+  const textract = new TextractClient({
+    secretAccessKey: textractCred.secret,
+    accessKeyId: textractCred.key,
+    region: 'us-east-1',
+  });
   const params = {
     DocumentLocation: {
       S3Object: {
