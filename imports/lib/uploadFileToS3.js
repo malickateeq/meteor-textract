@@ -9,6 +9,9 @@ import { Random } from 'meteor/random';
 import imagesCollection from '/imports/db/imagesCollection';
 
 const uploadFileToS3 = (file) => {
+  const pendingFile = imagesCollection.findOne({ _id: file._id })?.fetch();
+  if (pendingFile.s3_uploaded) return;
+
   const newFileName =
     Random.id().substring(1, 22) + '.' + file.name.split('.').pop();
   const bound = Meteor.bindEnvironment((callback) => {

@@ -8,6 +8,12 @@ export const TextractContent = () => {
     let textractSubmissionInterval = null;
     let textractResultInterval = null;
 
+    // // For setInterval's block objects to get make itself up to date
+    // const getFileUpdates = (lastestFile) => {
+    //     const files = imagesCollection.findOne({_id: lastestFile._id}).fetch();
+    //     return files[0];
+    // };
+
     // Listener
     const { lastestFile } = useTracker(() => {
         let lastestFile = null;

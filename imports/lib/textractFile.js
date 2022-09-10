@@ -7,6 +7,9 @@ import imagesCollection from '/imports/db/imagesCollection';
 
 // 1. Submit document to analyze
 export const textractFile = (file) => {
+  const pendingFile = imagesCollection.findOne({ _id: file._id })?.fetch();
+  if (pendingFile.textracted === true) return;
+
   console.log('TR1', file.name);
   const textractCred = {
     key: 'AKIAW6CT5462KG4XIKUT',
@@ -53,6 +56,9 @@ export const textractFile = (file) => {
 
 // 1. Submit document to analyze
 export const getFileAnalysis = (file) => {
+  const pendingFile = imagesCollection.findOne({ _id: file._id })?.fetch();
+  if (pendingFile.analysis) return;
+
   const textract = new TextractClient({ region: 'us-east-1' });
   const params = { JobId: file.jobId };
   //   if (NextToken) params.NextToken = NextToken;

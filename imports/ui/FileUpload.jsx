@@ -11,7 +11,7 @@ export const FileUpload = () => {
         var file = e.currentTarget.files[0];
 
       if (file) {
-        //   Delete all existing records
+        // Delete all existing records
         Meteor.call('files.crud.delete');
         
         let uploadInstance = imagesCollection.insert(
